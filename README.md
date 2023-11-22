@@ -4,36 +4,15 @@ In this project for our master's course "unsupervised learning", we aim to repro
 
 ## Installation
 
-### Pytorch installation
-
-The model is implemented with pytorch.
-To install pytorch we refer the reader to the [Pytorch website](https://pytorch.org/get-started/locally/)
-
-With conda:
-```bash
-conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
-```
-
-With pip:
-```bash
-pip install torch torchvision
-```
-### Other requirements
-
-With conda:
-```bash
-conda install numpy
-conda install -c anaconda scipy
-conda install -c conda-forge matplotlib
-conda install -c conda-forge argparse
+### Creation of a conda environment
+In order to implement the algorithms, we created some guided notebooks. Notebooks require a kernel with already installed packages. We propose to create a conda environment for this particular project using the following command:
 
 ```
-
-With pip:
-```bash
-pip install numpy scipy matplotlib argparse
+conda create --name NSA_FVRL --file env_requirements.txt
 ```
 
+### Kernel selection in python notebook
+Before runing the notebook, we will need 
 
 ## Usage
 
