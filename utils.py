@@ -71,16 +71,16 @@ def split_params(gammatheta, n1, n2, nq, nl):
 
     n_gamma = (4 * n1 + 4 * n2 + (n1 * (nq - 1))) + (n2 * (nl - 1))
 
-    r_nu_a = gammatheta[0:n1].reshape((n1, 1))
+    r_nu_a = gammatheta[0:n1].reshape((n1, 1)) #a
     r_rho_a = gammatheta[n1 : (2 * n1)].reshape((n1, 1))
 
-    r_nu_b = gammatheta[(2 * n1) : (3 * n1)].reshape((n1, 1))
+    r_nu_b = gammatheta[(2 * n1) : (3 * n1)].reshape((n1, 1)) #b
     r_rho_b = gammatheta[(3 * n1) : (4 * n1)].reshape((n1, 1))
 
-    r_nu_p = gammatheta[(4 * n1) : (4 * n1 + n2)].reshape((1, n2))
+    r_nu_p = gammatheta[(4 * n1) : (4 * n1 + n2)].reshape((1, n2)) #c
     r_rho_p = gammatheta[(4 * n1 + n2) : (4 * n1 + 2 * n2)].reshape((1, n2))
 
-    r_nu_q = gammatheta[(4 * n1 + 2 * n2) : (4 * n1 + 3 * n2)].reshape((1, n2))
+    r_nu_q = gammatheta[(4 * n1 + 2 * n2) : (4 * n1 + 3 * n2)].reshape((1, n2)) #d
     r_rho_q = gammatheta[(4 * n1 + 3 * n2) : (4 * n1 + 4 * n2)].reshape(
         (1, n2)
     )
@@ -280,21 +280,38 @@ def d2_DL3_XO(x, y, mu, pi, d):
 
 
 def init_random_params(n1, n2, nq, nl):
-    mu_un = np.random.uniform(-4.5, -3.5)
-    sigma_sq_a = np.random.uniform(0.4, 0.7)
+    """Function that generates gamma and theta for some intial parameters (clusters size, data matrix size)
+
+    Args:
+        n1 (int): row length
+        n2 (int): column length
+        nq (int): number of row clusters 
+        nl (int): number of column clusters 
+
+    Returns:
+        np.concatenate((gamma, theta)): the respective parameters gamma and theta for the initial parameters
+    """
+    #Theta params
+    mu_un = np.random.uniform(-4.5, -3.5) # expit(μ) is the global missingness rate
+    sigma_sq_a = np.random.uniform(0.4, 0.7) 
     sigma_sq_b = np.random.uniform(0.4, 0.7)
     sigma_sq_p = np.random.uniform(0.4, 0.7)
     sigma_sq_q = np.random.uniform(0.4, 0.7)
-    alpha_1 = (np.ones(nq) / nq).reshape((nq, 1))
-    alpha_2 = (np.ones(nl) / nl).reshape((1, nl))
-    pi = np.random.uniform(0.2, 0.8, (nq, nl))
-    nu_a = np.random.uniform(-0.5, 0.5, (n1, 1))
+    alpha_1 = (np.ones(nq) / nq).reshape((nq, 1)) #uniform proba of each row cluster
+    alpha_2 = (np.ones(nl) / nl).reshape((1, nl)) #idem for col cluster
+    pi = np.random.uniform(0.2, 0.8, (nq, nl)) #pi_kl (size: nb row clust  nb col clust)
+
+    #Gamma params
+    # non informative initialization 
+    #### Moyennes tirées sur une uniforme [-0.5,0.5]
+    nu_a = np.random.uniform(-0.5, 0.5, (n1, 1))# column vector of size n1
     nu_b = np.random.uniform(-0.5, 0.5, (n1, 1))
-    nu_p = np.random.uniform(-0.5, 0.5, (1, n2))
+    nu_p = np.random.uniform(-0.5, 0.5, (1, n2)) # row vector of size n2
     nu_q = np.random.uniform(-0.5, 0.5, (1, n2))
-    rho_a = 1e-5 * np.ones((n1, 1))
+    #### Variance fixe: 1e-5 pour tous 
+    rho_a = 1e-5 * np.ones((n1, 1))# column vector of size n1
     rho_b = 1e-5 * np.ones((n1, 1))
-    rho_p = 1e-5 * np.ones((1, n2))
+    rho_p = 1e-5 * np.ones((1, n2)) # row vector of size n2
     rho_q = 1e-5 * np.ones((1, n2))
     tau_1 = np.diff(
         np.concatenate(
@@ -306,7 +323,7 @@ def init_random_params(n1, n2, nq, nl):
             axis=1,
         ),
         axis=1,
-    )
+    ) #size (n1,nq)
     tau_2 = np.diff(
         np.concatenate(
             (
@@ -317,7 +334,7 @@ def init_random_params(n1, n2, nq, nl):
             axis=1,
         ),
         axis=1,
-    )
+    ) #size (n2, nl)
     theta = np.concatenate(
         (
             (mu_un,),

@@ -5,7 +5,7 @@ import torch
 def train_with_LBFGS(
     model,
     loglike_dist_tol=1e-4,
-    max_iter=50000,
+    max_iter=100, #50000
     norm_grad_tol=1e-4,
     initial_learning_rate=1.0,
     hessian_history_size=100,

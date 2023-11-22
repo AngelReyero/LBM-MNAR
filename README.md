@@ -1,8 +1,6 @@
-# How to apply the LBM with MNAR missing data on the data of French parliament 2018.
+# Non supervised Learning 
 
-**The use of at least one GPU is necessary to run the model on the French parliament dataset.**
-
-The French parliament 2018 dataset is availble in folder *data_parliament*
+In this project for our master's course "unsupervised learning", we aim to reproduce some of the results of the article *"Learning from missing data with the binary latent block model."*
 
 ## Installation
 
