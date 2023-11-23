@@ -7,9 +7,9 @@ from utils import reparametrized_expanded_params, d2_DL3_XO
 class LBM_NMAR(nn.Module):
     def __init__(self, init_parameters, votes, shapes, device, device2=None):
         super().__init__()
-        self.indices_p = np.argwhere(votes == 1)
-        self.indices_n = np.argwhere(votes == -1)
-        self.indices_zeros = np.argwhere(votes == 0)
+        self.indices_p = np.argwhere(votes == 1) #argwhere: matrix with couples (row,column) with 1 values 
+        self.indices_n = np.argwhere(votes == -1) #idem with -1
+        self.indices_zeros = np.argwhere(votes == 0) #idem with 0 
 
         self.n1 = shapes[0]
         self.n2 = shapes[1]
@@ -98,17 +98,8 @@ class LBM_NMAR(nn.Module):
     def entropy_rx(self, rho_a, rho_b, rho_p, rho_q, tau_1, tau_2):
         n1, n2 = self.n1, self.n2
         return (
-            1
-            / 2
-            * (2 * n1 + 2 * n2)
-            * (
-                torch.log(
-                    torch.tensor(
-                        2 * np.pi, dtype=torch.double, device=self.device
-                    )
-                )
-                + 1
-            )
+            1/2* (2 * n1 + 2 * n2)* 
+            (torch.log(torch.tensor(2 * np.pi, dtype=torch.float32, device=self.device))+ 1)
             + 1 / 2 * torch.sum(torch.log(rho_a))
             + 1 / 2 * torch.sum(torch.log(rho_b))
             + 1 / 2 * torch.sum(torch.log(rho_p))
@@ -121,7 +112,7 @@ class LBM_NMAR(nn.Module):
         n1 = self.n1
         return -n1 / 2 * (
             torch.log(
-                torch.tensor(2 * np.pi, dtype=torch.double, device=self.device)
+                torch.tensor(2 * np.pi, dtype=torch.float32, device=self.device)
             )
             + torch.log(sigma_sq_a)
         ) - 1 / (2 * sigma_sq_a) * torch.sum(rho_a + nu_a ** 2)
@@ -130,7 +121,7 @@ class LBM_NMAR(nn.Module):
         n1 = self.n1
         return -n1 / 2 * (
             torch.log(
-                torch.tensor(2 * np.pi, dtype=torch.double, device=self.device)
+                torch.tensor(2 * np.pi, dtype=torch.float32, device=self.device)
             )
             + torch.log(sigma_sq_b)
         ) - 1 / (2 * sigma_sq_b) * torch.sum(rho_b + nu_b ** 2)
@@ -139,7 +130,7 @@ class LBM_NMAR(nn.Module):
         n2 = self.n2
         return -n2 / 2 * (
             torch.log(
-                torch.tensor(2 * np.pi, dtype=torch.double, device=self.device)
+                torch.tensor(2 * np.pi, dtype=torch.float32, device=self.device)
             )
             + torch.log(sigma_sq_p)
         ) - 1 / (2 * sigma_sq_p) * torch.sum(rho_p + nu_p ** 2)
@@ -148,7 +139,7 @@ class LBM_NMAR(nn.Module):
         n2 = self.n2
         return -n2 / 2 * (
             torch.log(
-                torch.tensor(2 * np.pi, dtype=torch.double, device=self.device)
+                torch.tensor(2 * np.pi, dtype=torch.float32, device=self.device)
             )
             + torch.log(sigma_sq_q)
         ) - 1 / (2 * sigma_sq_q) * torch.sum(rho_q + nu_q ** 2)
@@ -182,16 +173,16 @@ class LBM_NMAR(nn.Module):
             self.indices_n,
             self.indices_zeros,
         )
-        i_p_one = indices_p[:, 0]
-        i_m_one = indices_n[:, 0]
-        i_zeros = indices_zeros[:, 0]
-        j_p_one = indices_p[:, 1]
-        j_m_one = indices_n[:, 1]
-        j_zeros = indices_zeros[:, 1]
+        i_p_one = indices_p[:, 0] # takes rows Xij=1
+        i_m_one = indices_n[:, 0] #takes rows Xij=0
+        i_zeros = indices_zeros[:, 0] #takes rows Xij=NA
+        j_p_one = indices_p[:, 1] # cols Xij=1
+        j_m_one = indices_n[:, 1] #cols Xij=0
+        j_zeros = indices_zeros[:, 1] #cols Xij=NA
 
-        ## POSITIVES ###
-        xp = nu_a[i_p_one].flatten() + nu_p[:, j_p_one].flatten()
-        yp = nu_b[i_p_one].flatten() + nu_q[:, j_p_one].flatten()
+        ## POSITIVES (Xij=1) ### 
+        xp = nu_a[i_p_one].flatten() + nu_p[:, j_p_one].flatten() #for A & C
+        yp = nu_b[i_p_one].flatten() + nu_q[:, j_p_one].flatten() #for B & D
         sig_p = torch.sigmoid(
             mu_un
             + nu_a[i_p_one]

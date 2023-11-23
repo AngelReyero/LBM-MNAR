@@ -4,13 +4,13 @@ import torch
 
 def train_with_LBFGS(
     model,
-    loglike_dist_tol=1e-2, #1e-4,
-    max_iter=50, #50000
-    norm_grad_tol=1e-2, #1e-4,
+    loglike_dist_tol=1e-4, 
+    max_iter=50000,
+    norm_grad_tol=1e-4,
     initial_learning_rate=1.0,
     hessian_history_size=100,
-    early_stopping=True, #False
-    loglike_diff_breaking_cond=1e-2,#1e-3,
+    early_stopping=False, 
+    loglike_diff_breaking_cond=1e-3,
     divide_by_line_search=2,
 ):
     try:

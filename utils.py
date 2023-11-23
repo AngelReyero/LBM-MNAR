@@ -24,11 +24,11 @@ def nth_derivative(f, wrt, n):
 def expandpow(s, device):
     return torch.exp(
         (
-            torch.ones(s.shape[1], device=device, dtype=torch.double)
+            torch.ones(s.shape[1], device=device, dtype=torch.float32)
             / torch.arange(
-                s.shape[1], 0, -1, device=device, dtype=torch.double
+                s.shape[1], 0, -1, device=device, dtype=torch.float32
             ).reshape((1, -1))
-        ).double()
+        )
         * torch.log(s)
     )
 
@@ -36,14 +36,14 @@ def expandpow(s, device):
 def expand_simplex_internal(x, device):
     return torch.cat(
         (
-            torch.ones((x.shape[0], 1), device=device, dtype=torch.double),
+            torch.ones((x.shape[0], 1), device=device, dtype=torch.float32),
             torch.exp(torch.cumsum(torch.log(x), dim=1)),
         ),
         1,
     ) * torch.cat(
         (
             1 - x,
-            torch.ones((x.shape[0], 1), device=device, dtype=torch.double),
+            torch.ones((x.shape[0], 1), device=device, dtype=torch.float32),
         ),
         1,
     )

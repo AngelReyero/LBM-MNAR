@@ -8,7 +8,7 @@ In this project for our master's course "unsupervised learning", we aim to repro
 In order to implement the algorithms, we created some guided notebooks. Notebooks require a kernel with already installed packages. We propose to create a conda environment for this particular project using the following command:
 
 ```
-conda create --name NSA_FVRL --file env_requirements.txt
+conda create --name NSA_FVRL --file requirements.txt
 ```
 
 ### Kernel selection in python notebook
