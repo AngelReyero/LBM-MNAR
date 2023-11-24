@@ -91,4 +91,21 @@ def fig_17(votes, deputes, row_classes, column_classes, pi):
     cbar1.set_label('Proba of voting positively')
 
     plt.tight_layout()
+    plt.savefig('Figures/17.png')
+
     plt.show()
+
+
+def fig_nu(nu_i, nu_j, dfr, string_char):
+    data = {
+        string_char[0]: np.array([dfr[i][string_char[0]] for i in range(len(dfr))]),
+        string_char[1] : nu_i.reshape(-1),
+        string_char[2] :  nu_j.reshape(-1)}
+    dfr = pd.DataFrame(data)
+    plt.figure()
+    sns.scatterplot(x=string_char[1],y=string_char[2], data=dfr, hue=string_char[0]).set(title="Maximum a posteriori estimates of the MPs")
+    plt.xlabel(string_char[1])
+    plt.ylabel(string_char[2])
+    plt.legend(fontsize='8') # for legend text
+    plt.savefig('Figures/'+string_char[1]+'_'+string_char[2]+'.png')
+    pass
