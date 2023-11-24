@@ -2,6 +2,64 @@ import torch
 from torch.nn.functional import softplus
 import numpy as np
 from scipy.special import expit, logit
+import torch
+import numpy as np
+import yaml
+
+def convert_to_yaml(obj):
+    """
+    Convert tensors, numpy arrays, and other objects to YAML-friendly types.
+
+    Parameters:
+    - obj: Object to be converted.
+
+    Returns:
+    - converted_obj: Converted object.
+
+    Example:
+    converted = convert_to_yaml_friendly(tensor_or_numpy_array)
+    """
+    if isinstance(obj, torch.Tensor):
+        return obj.tolist()  # Convert tensor to list
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()  # Convert numpy array to list
+    # Add more conversions for other types if needed
+    else:
+        return obj  # Return as is for other types
+
+def save_objects_to_yaml(objects_dict, file_path):
+    """
+    Save objects (including tensors, numpy arrays, etc.) to a YAML file.
+
+    Parameters:
+    - objects_dict (dict): Dictionary containing objects to be saved.
+    - file_path (str): Path to the YAML file.
+
+    Example:
+    save_objects_to_yaml({'tensor': torch.randn(3, 3), 'numpy_array': np.random.rand(4, 4)}, 'objects.yaml')
+    """
+    converted_dict = {key: convert_to_yaml(obj) for key, obj in objects_dict.items()}
+
+    with open(file_path, 'w') as file:
+        yaml.dump(converted_dict, file, default_flow_style=False)
+
+def load_objects_from_yaml(file_path):
+    """
+    Load parameters from a YAML file.
+
+    Parameters:
+    - file_path (str): Path to the YAML file.
+
+    Returns:
+    - parameters (dict): Dictionary containing parameter names and values.
+
+    Example:
+    loaded_parameters = load_parameters_from_yaml('parameters.yaml')
+    """
+    with open(file_path, 'r') as file:
+        parameters = yaml.safe_load(file)
+    return parameters
+
 
 inv_softplus = lambda x: x + np.log(-np.expm1(-x))
 shrink_simplex_internal = (
