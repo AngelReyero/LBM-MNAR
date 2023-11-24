@@ -25,6 +25,24 @@ def groupes_politiques(row_classes, deputes):
             
     return group_per_class,df_counts 
 
+
+def pol(column_classes, texts): 
+    xt = pd.DataFrame(texts)['demandeur']
+    groups = xt.drop_duplicates().to_numpy()
+    group_per_class = []
+
+    for nq in range(len(texts)): 
+        vec = []
+        for i, c in enumerate(column_classes): 
+            if c==nq and xt[i] not in vec: 
+                    vec.append(xt[i])
+        if vec != []: 
+            group_per_class.append(str(vec))
+
+    let = generate_alphabet_text_array(len(np.unique(column_classes)))
+    datafr = pd.DataFrame(np.array([let, group_per_class]).T, columns=pd.Index(['Letters', 'Demandors']))
+    return group_per_class, datafr
+
 def pi_df(pi, row_classes, column_classes): 
     pi_ = np.zeros((len(row_classes), len(column_classes)))
     for i,t1 in enumerate(row_classes): 
@@ -91,21 +109,39 @@ def fig_17(votes, deputes, row_classes, column_classes, pi):
     cbar1.set_label('Proba of voting positively')
 
     plt.tight_layout()
-    plt.savefig('Figures/17.png')
-
     plt.show()
+    plt.savefig('Figures/Figure_17.png')
+    
 
 
-def fig_nu(nu_i, nu_j, dfr, string_char):
+def fig_nuAB(nu_i, nu_j, dfr):
     data = {
-        string_char[0]: np.array([dfr[i][string_char[0]] for i in range(len(dfr))]),
-        string_char[1] : nu_i.reshape(-1),
-        string_char[2] :  nu_j.reshape(-1)}
+        'political group': np.array([dfr[i]['groupe'] for i in range(len(dfr))]),
+        'nu_a' : nu_i.reshape(-1),
+        'nu_b' :  nu_j.reshape(-1)}
     dfr = pd.DataFrame(data)
     plt.figure()
-    sns.scatterplot(x=string_char[1],y=string_char[2], data=dfr, hue=string_char[0]).set(title="Maximum a posteriori estimates of the MPs")
-    plt.xlabel(string_char[1])
-    plt.ylabel(string_char[2])
+    sns.scatterplot(x='nu_a',y='nu_b', data=dfr, hue='political group').set(title="Maximum a posteriori estimates of the MPs")
+    plt.xlabel('nu_a')
+    plt.ylabel('nu_b')
     plt.legend(fontsize='8') # for legend text
-    plt.savefig('Figures/'+string_char[1]+'_'+string_char[2]+'.png')
+    plt.show()
+    plt.savefig('Figures/Figure_12.png')
+    
+    pass
+
+def fig_nuCD(nu_i, nu_j, dataf, column_classes):
+    data = {
+        'Column cluster': dataf['Letters'][column_classes],
+        'nu_c' : nu_i.reshape(-1),
+        'nu_d' :  nu_j.reshape(-1)}
+    
+    dfr = pd.DataFrame(data)
+    plt.figure()
+    sns.scatterplot(x='nu_c',y='nu_d', data=dfr, hue='Column cluster').set(title="Maximum a posteriori estimates of the resolution propensities")
+    plt.xlabel('nu_a')
+    plt.ylabel('nu_b')
+    plt.legend(fontsize='8') # for legend text
+    plt.show()
+    plt.savefig('Figures/Figure_18.png')
     pass

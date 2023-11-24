@@ -1,4 +1,4 @@
-from lbfgs import FullBatchLBFGS
+from fcts.lbfgs import FullBatchLBFGS
 import numpy as np
 import torch
 
