@@ -39,3 +39,7 @@ Given the potential computational expense of training, we recommend utilizing a 
 
 
 The default configuration sets the number of row classes to 3 and column classes to 5.
+
+
+We based our work on the Github from the article: 
+https://github.com/gfrisch/LBM-MNAR
