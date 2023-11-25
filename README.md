@@ -29,7 +29,7 @@ We have developed four notebooks to explore the code version of the Latent Block
 
 - **1.1-Dummy_training.ipynb:** This notebook initiates the training process for the Variational Expectation-Maximization (VEM) model, as proposed in the referenced article. It provides a preliminary exploration with a focus on one iteration of the VEM algorithm, offering insights into the model's early learning dynamics.
 
-- **1.2-Model_LBM_MNAR.ipynb:* Provides an overview of the computation of the criterion $J(\gamma, \theta)$
+- **1.2-Model_LBM_MNAR.ipynb:** Provides an overview of the computation of the criterion $J(\gamma, \theta)$
 
 - 2- **Train.ipynb:** Designed to train the entire model on the parliament dataset. Given the potential time-intensive nature of this procedure, we have saved the parameters in the file named "trained_parameters.yaml", so that, computing this step is not required to continue exploring the notebooks. 
 
