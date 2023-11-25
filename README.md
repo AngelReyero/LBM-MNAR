@@ -33,7 +33,7 @@ We have developed four notebooks to explore the code version of the Latent Block
 
 - 2- **Train.ipynb:** Designed to train the entire model on the parliament dataset. Given the potential time-intensive nature of this procedure, we have saved the parameters in the file named "trained_parameters.yaml", so that, computing this step is not required to continue exploring the notebooks. 
 
-- **3-Figure_creation.ipynb:** Specifically crafted for creating figures 12, 17, and 18 from the article. Running this notebook does not necessitate the execution of the entire model, as parameters are loaded from the yaml file.
+- **3-Figure_creation.ipynb:** Specifically crafted for creating figures 12, 17, and 18 from the article (saved in \Figures). Running this notebook does not necessitate the execution of the entire model, as parameters are loaded from the yaml file.
 
 Given the potential computational expense of training, we recommend utilizing a GPU. To specify the device, the device argument can be employed, with 'cuda' recommended for general (use or 'mps' for Mac). 
 
