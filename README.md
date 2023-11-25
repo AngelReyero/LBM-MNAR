@@ -1,14 +1,23 @@
 # Non supervised Learning 
 
-In this project for our master's course "unsupervised learning", we aim to reproduce some of the results of the article *"Learning from missing data with the binary latent block model."*
+In this master's course project centered around "unsupervised learning," our primary goals encompass the replication of key findings from the research paper titled "Learning from missing data with the binary latent block model." Additionally, we aim to provide a comprehensive computational overview of the Latent Block Model (LBM) tailored for Missing Not at Random (MNAR) scenarios.
+
 
 ## Installation
 
 ### Creation of a conda environment
-In order to implement the algorithms, we created some guided notebooks. Notebooks require a kernel with already installed packages. We propose to create a conda environment for this particular project using the following command:
+To facilitate the implementation of the algorithms, we have developed guided notebooks, each requiring a kernel with pre-installed packages. To streamline this process, we recommend establishing a dedicated conda environment designed for this specific project. Two approaches to achieve this include:
 
+#### 1- Run the following command in the terminal 
 ```
 conda create --name NSA_FVRL --file requirements.txt
+```
+#### 2- Step-by-step: 
+```
+conda create --name NSA_FVRL
+conda activate NSA_FVRL
+conda install jupyter pandas numpy matplotlib scikit-learn tqdm seaborn argparse
+conda install pytorch torchvision -c pytorch
 ```
 
 ### Kernel selection in python notebook
@@ -16,32 +25,17 @@ Before runing the notebook, we will need
 
 ## Usage
 
-To run the model on the dataset, use the script *run_on_dataset_parliament.py*:
-```bash
-python run_on_dataset_parliament.py
-```
-The default number of row classes is 3 and column classes is 5.
+We have developed four notebooks to explore the code version of the Latent Block Model (LBM) for Missing Not at Random (MNAR) scenarios:
+
+- **1.1-Dummy_training.ipynb:** This notebook initiates the training process for the Variational Expectation-Maximization (VEM) model, as proposed in the referenced article. It provides a preliminary exploration with a focus on one iteration of the VEM algorithm, offering insights into the model's early learning dynamics.
+
+- **1.2-Model_LBM_MNAR.ipynb:* Provides an overview of the computation of the criterion $J(\gamma, \theta)$
+
+- 2- **Train.ipynb:** Designed to train the entire model on the parliament dataset. Given the potential time-intensive nature of this procedure, we have saved the parameters in the file named "trained_parameters.yaml", so that, computing this step is not required to continue exploring the notebooks. 
+
+- **3-Figure_creation.ipynb:** Specifically crafted for creating figures 12, 17, and 18 from the article. Running this notebook does not necessitate the execution of the entire model, as parameters are loaded from the yaml file.
+
+Given the potential computational expense of training, we recommend utilizing a GPU. To specify the device, the device argument can be employed, with 'cuda' recommended for general (use or 'mps' for Mac). 
 
 
-
-To run with a GPU use the argument *device* and specify the cuda index of desired gpu (often 0):
-```bash
-python run_on_dataset_parliament.py --device=0
-```
-
-To run with higher number of classes, use the arguments *nb_row_classes* and *nb_col_classes* as:
-```bash
-python run_on_dataset_parliament.py --nb_row_classes=3 --nb_col_classes=5
-```
-
-With higher number of classes, the memory of your GPU may overflow. In that case, you can use a second GPU with the argument *device2* (index cuda needs to be specify):
-
-```bash
-python run_on_dataset_parliament.py --device=0 --device2=1 --nb_row_classes=3 --nb_col_classes=8
-```
-
-
-The script can be keyboard interrupted  at any moment. In that case, the algorithm returns the MPs and texts classes and a plot of the voting matrix re-ordereded according to class memberships.
-
-## License
-[MIT]
+The default configuration sets the number of row classes to 3 and column classes to 5.

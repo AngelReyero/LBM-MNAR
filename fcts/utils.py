@@ -61,14 +61,10 @@ def load_objects_from_yaml(file_path):
     return parameters
 
 
-inv_softplus = lambda x: x + np.log(-np.expm1(-x))
-shrink_simplex_internal = (
-    lambda p: 1 - p[:, :-1] / np.cumsum(p[:, ::-1], axis=1)[:, :0:-1]
-)
-shrinkpow = lambda s: np.exp(
-    (np.arange(s.shape[1], 0, -1).reshape((1, -1))) * np.log(s)
-)
-shrink_simplex = lambda p: shrinkpow(shrink_simplex_internal(p))
+inv_softplus=  lambda x: x + np.log(-np.expm1(-x))
+shrink_simplex_internal= (lambda p: 1 - p[:, :-1] / np.cumsum(p[:, ::-1], axis=1)[:, :0:-1])
+shrinkpow= lambda s: np.exp((np.arange(s.shape[1], 0, -1).reshape((1, -1))) * np.log(s))
+shrink_simplex= lambda p: shrinkpow(shrink_simplex_internal(p))
 
 
 def nth_derivative(f, wrt, n):
