@@ -25,7 +25,7 @@ Before runing the notebook, we will need
 
 ## Usage
 
-We have developed four notebooks to explore the code version of the Latent Block Model (LBM) for Missing Not at Random (MNAR) scenarios:
+We have developed five notebooks to explore the code version of the Latent Block Model (LBM) for Missing Not at Random (MNAR) scenarios:
 
 - **1.1-Dummy_training.ipynb:** This notebook initiates the training process for the Variational Expectation-Maximization (VEM) model, as proposed in the referenced article. It provides a preliminary exploration with a focus on one iteration of the VEM algorithm, offering insights into the model's early learning dynamics.
 
@@ -34,6 +34,8 @@ We have developed four notebooks to explore the code version of the Latent Block
 - 2- **Train.ipynb:** Designed to train the entire model on the parliament dataset. Given the potential time-intensive nature of this procedure, we have saved the parameters in the file named "trained_parameters.yaml", so that, computing this step is not required to continue exploring the notebooks. 
 
 - **3-Figure_creation.ipynb:** Specifically crafted for creating figures 12, 17, and 18 from the article (saved in \Figures). Running this notebook does not necessitate the execution of the entire model, as parameters are loaded from the yaml file.
+
+- **4-ICL.ipynb**: Designed to compute the ICL criterion associated to the trained model from 2-Train.ipynb
 
 Given the potential computational expense of training, we recommend utilizing a GPU. To specify the device, the device argument can be employed, with 'cuda' recommended for general (use or 'mps' for Mac). 
 
