@@ -1,4 +1,4 @@
-# Non supervised Learning 
+# Unsupervised learning 
 
 Laura Fuentes Vicente, Angel Reyero Lobo
 
@@ -23,7 +23,7 @@ conda install pytorch torchvision -c pytorch
 ```
 
 ### Kernel selection in python notebook
-Before runing the notebook, we will need 
+Before runing the notebook, we will need to select the predefined kernel.
 
 ## Usage
 

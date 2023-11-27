@@ -8,11 +8,11 @@ import yaml
 def groupes_politiques(row_classes, deputes): 
     dep = pd.DataFrame(deputes)['groupe']
     groups = dep.unique()
-    count  = np.zeros_like(groups)
     group_per_class = []
     df_counts = pd.DataFrame(columns=pd.Index(groups))
 
     for nq in range(len(deputes)): 
+        count  = np.zeros_like(groups)
         vec = []
         for i, c in enumerate(row_classes): 
             if c==nq: 
@@ -99,7 +99,7 @@ def fig_17(votes, deputes, row_classes, column_classes, pi):
 
     cbar0 =plt.colorbar(ax0, ax = ax[0],location='bottom', ticks= np.unique(votes), shrink=0.6)
     cbar0.set_ticklabels(['Negative','NA','Positive'])
-    cbar0.set_label('Votin result' )
+    cbar0.set_label('Voting result' )
 
 
     ax1 = ax[1].imshow(pi_[np.argsort(row_classes),:][:,np.argsort(column_classes)], cmap='gray', label='clusters')
@@ -109,9 +109,8 @@ def fig_17(votes, deputes, row_classes, column_classes, pi):
     cbar1.set_label('Proba of voting positively')
 
     plt.tight_layout()
+    plt.savefig('Figures/Figure_17.pdf')
     plt.show()
-    plt.savefig('Figures/Figure_17.png')
-    
 
 
 def fig_nuAB(nu_i, nu_j, dfr):
@@ -122,12 +121,15 @@ def fig_nuAB(nu_i, nu_j, dfr):
     dfr = pd.DataFrame(data)
     plt.figure()
     sns.scatterplot(x='nu_a',y='nu_b', data=dfr, hue='political group').set(title="Maximum a posteriori estimates of the MPs")
-    plt.xlabel('nu_a')
-    plt.ylabel('nu_b')
+    plt.xlabel(r'$\nu_a$')
+    plt.ylabel(r'$\nu_b$')
+    plt.axhline(0, color='gray',linewidth=0.5)
+    plt.axvline(0, color='gray',linewidth=0.5)
+
     plt.legend(fontsize='8') # for legend text
+    plt.savefig('Figures/Figure_12.pdf')
     plt.show()
-    plt.savefig('Figures/Figure_12.png')
-    
+
     pass
 
 def fig_nuCD(nu_i, nu_j, dataf, column_classes):
@@ -139,9 +141,11 @@ def fig_nuCD(nu_i, nu_j, dataf, column_classes):
     dfr = pd.DataFrame(data)
     plt.figure()
     sns.scatterplot(x='nu_c',y='nu_d', data=dfr, hue='Column cluster').set(title="Maximum a posteriori estimates of the resolution propensities")
-    plt.xlabel('nu_a')
-    plt.ylabel('nu_b')
+    plt.axhline(0, color='gray',linewidth=0.5)
+    plt.axvline(0, color='gray',linewidth=0.5)
+    plt.xlabel(r'$\nu_c$')
+    plt.ylabel(r'$\nu_d$')
     plt.legend(fontsize='8') # for legend text
+    plt.savefig('Figures/Figure_18.pdf')
     plt.show()
-    plt.savefig('Figures/Figure_18.png')
     pass

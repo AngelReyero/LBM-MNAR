@@ -17,7 +17,7 @@ def train_with_LBFGS(
         print("-" * 80, "\nStart training LBM MNAR", "\n", "-" * 80)
         print("Number of row classes : ", model.nq)
         print("Number of col classes : ", model.nl)
-        print(f""" EM step  |   LBFGS iter  | criteria |""")
+        print(f""" VEM step  |   LBFGS iter  | criteria |""")
         eobj_prec = 0
         success = False
         for i_step in range(0, max_iter):
