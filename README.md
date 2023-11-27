@@ -1,5 +1,7 @@
 # Non supervised Learning 
 
+Laura Fuentes Vicente, Angel Reyero Lobo
+
 In this master's course project centered around "unsupervised learning," our primary goals encompass the replication of key findings from the research paper titled "Learning from missing data with the binary latent block model." Additionally, we aim to provide a comprehensive computational overview of the Latent Block Model (LBM) tailored for Missing Not at Random (MNAR) scenarios.
 
 
@@ -31,7 +33,7 @@ We have developed five notebooks to explore the code version of the Latent Block
 
 - **1.2-Model_LBM_MNAR.ipynb:** Provides an overview of the computation of the criterion $J(\gamma, \theta)$
 
-- 2- **Train.ipynb:** Designed to train the entire model on the parliament dataset. Given the potential time-intensive nature of this procedure, we have saved the parameters in the file named "trained_parameters.yaml", so that, computing this step is not required to continue exploring the notebooks. 
+- **2-Train.ipynb:** Designed to train the entire model on the parliament dataset. Given the potential time-intensive nature of this procedure, we have saved the parameters in the file named "trained_parameters.yaml", so that, computing this step is not required to continue exploring the notebooks. 
 
 - **3-Figure_creation.ipynb:** Specifically crafted for creating figures 12, 17, and 18 from the article (saved in \Figures). Running this notebook does not necessitate the execution of the entire model, as parameters are loaded from the yaml file.
 
