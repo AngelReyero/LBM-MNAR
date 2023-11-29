@@ -101,10 +101,11 @@ def fig_17(votes, deputes, row_classes, column_classes, pi):
     cbar0.set_ticklabels(['Negative','NA','Positive'])
     cbar0.set_label('Voting result' )
 
-
+    
     ax1 = ax[1].imshow(pi_[np.argsort(row_classes),:][:,np.argsort(column_classes)], cmap='gray', label='clusters')
     ax[1].text(50, 650, c_legend, fontsize=10,  wrap=True)  # Add text in the left subplot
     ax[1].tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False,labelbottom=False, labelleft=False)
+    # Create a colorbar with the inverted colors
     cbar1 = plt.colorbar(ax1, shrink=0.6, ax = ax[1], location='bottom')
     cbar1.set_label('Proba of voting positively')
 

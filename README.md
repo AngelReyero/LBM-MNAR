@@ -42,8 +42,17 @@ We have developed five notebooks to explore the code version of the Latent Block
 Given the potential computational expense of training, we recommend utilizing a GPU. To specify the device, the device argument can be employed, with 'cuda' recommended for general (use or 'mps' for Mac). 
 
 
-The default configuration sets the number of row classes to 3 and column classes to 5.
+The default configuration sets the number of row classes to 3 and column classes to 5. 
 
+*NB: some of the parameters have been renamed:*
+- C => P 
+- D => Q
+- $\gamma => (\nu_a, \nu_b, \nu_p, \nu_q, \rho_a, \rho_b,\rho_p,\rho_q, \tau_1, \tau_2)$
+    - $tau^{Y} => tau_1$
+    - $tau^{Z} => tau_2$
+- $\theta => (\mu , \sigma_a^2, \sigma_b^2, \sigma_p^2, \sigma_q^2, \alpha_1, \alpha_2, \pi)$
+    - $\alpha => \alpha_1$
+    - $\beta => \alpha_2$
 
 We based our work on the Github from the article: 
 https://github.com/gfrisch/LBM-MNAR
